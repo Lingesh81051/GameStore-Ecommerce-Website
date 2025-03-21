@@ -1,12 +1,6 @@
-# GameStore-Ecommerce-Website
+# 🎮 GameStore-Ecommerce-Website
  A digital marketplace for video games, built with MongoDB, Express.js, React, and Node.js. Features include user authentication, game browsing, cart & checkout, and secure payments for a seamless shopping experience.
 Sure! Below is a **README.md** file for your **MERN-based E-commerce Platform for Video Game Stores**, structured with installation instructions, features, and usage details.
-
----
-
-# 🎮 GameStore Ecommerce Website
-
-Welcome to **GameStore**, a custom-built MERN stack application designed for a modern video game store experience. This project features a sleek blue and white theme with an intuitive user interface, inspired by popular gaming storefronts.
 
 ---
 
