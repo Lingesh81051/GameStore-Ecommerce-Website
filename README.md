@@ -130,7 +130,7 @@ If you found this project useful, give it a ⭐ on GitHub!
 
 ## 🧑‍💻 Author
 **Your Name**  
-[GitHub](https://github.com/yourusername) | [LinkedIn](https://linkedin.com/in/yourprofile)
+[GitHub](https://github.com/Lingesh81051/) | [LinkedIn]([https://linkedin.com/in/yourprofile](https://www.linkedin.com/in/lingesh-r-9771a8288/))
 ```
 
 ---
@@ -147,4 +147,4 @@ If you found this project useful, give it a ⭐ on GitHub!
    git push origin main
    ```
 
-Let me know if you need any modifications! 🚀
+
