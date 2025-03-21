@@ -1,0 +1,21 @@
+/* Categories.css */
+.categories-page {
+  background-color: #f0f4f8;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.categories-content {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.categories-content h1 {
+  color: #3498db;
+  margin-bottom: 10px;
+}
+
+.categories-content p {
+  font-size: 1.1rem;
+  color: #333;
+}
