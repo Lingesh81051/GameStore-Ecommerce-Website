@@ -10,18 +10,59 @@
   margin-bottom: 20px;
 }
 
-.product-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+/* Carousel Section */
+.carousel-section {
+  margin-bottom: 40px;
+  position: relative;
+  text-align: left;
 }
 
+.carousel-section h2 {
+  color: #3498db;
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0 50px; /* Space for arrow buttons */
+}
+
+.carousel-items {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.carousel-arrow {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #3498db;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.carousel-arrow.left {
+  left: 10px;
+}
+
+.carousel-arrow.right {
+  right: 10px;
+}
+
+/* Re-use Product Card Styles */
 .product-card {
   background: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   padding: 15px;
   width: 260px;
   text-align: center;
