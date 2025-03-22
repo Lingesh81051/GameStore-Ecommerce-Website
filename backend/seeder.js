@@ -43,6 +43,20 @@ const sampleProducts = [
     image: '/images/got.jpg'
   },
   {
+    name: 'God of War 2018',
+    description: 'This is a description for Sample Product 2',
+    price: 29.99,
+    countInStock: 5,
+    image: '/images/god of war.jpg'
+  },
+  {
+    name: 'Uncharted 4: A Thief\'s End',
+    description: 'This is a description for Sample Product 2',
+    price: 29.99,
+    countInStock: 5,
+    image: '/images/uncharted.jpg'
+  },
+  {
     name: 'Manor Lords',
     description: 'This is a description for Sample Product 2',
     price: 29.99,
@@ -62,6 +76,20 @@ const sampleProducts = [
     price: 29.99,
     countInStock: 5,
     image: '/images/assassin creed.jpg'
+  },
+  {
+    name: 'Watch Dogs 1',
+    description: 'This is a description for Sample Product 2',
+    price: 29.99,
+    countInStock: 5,
+    image: '/images/watch dogs.jpg'
+  },
+  {
+    name: 'Heavy Rain',
+    description: 'This is a description for Sample Product 2',
+    price: 29.99,
+    countInStock: 5,
+    image: '/images/heavy rain.jpg'
   },
   {
     name: 'Marvel\'s Spiderman',

@@ -6,29 +6,47 @@ import './Home.css';
 
 function Carousel({ title, products }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const visibleCount = 4; // number of product cards visible at once
+  const visibleCount = 5; // Show five products at a time
+  const cardWidth = 300;  // Width of each product card in px (must match CSS)
+  const gap = 20;         // Gap between product cards in px
 
   const prev = () => {
-    setCurrentIndex(Math.max(0, currentIndex - visibleCount));
+    setCurrentIndex(prevIndex => Math.max(0, prevIndex - 1));
   };
 
   const next = () => {
-    setCurrentIndex(Math.min(products.length - visibleCount, currentIndex + visibleCount));
+    setCurrentIndex(prevIndex => Math.min(products.length - visibleCount, prevIndex + 1));
   };
-
-  const visibleProducts = products.slice(currentIndex, currentIndex + visibleCount);
 
   return (
     <div className="carousel-section">
-      <h2>{title}</h2>
-      <div className="carousel-container">
-        {currentIndex > 0 && (
-          <button className="carousel-arrow left" onClick={prev} title="Previous">
+      <div className="carousel-header">
+        <h2>{title}</h2>
+        <div className="carousel-arrows">
+          <button 
+            className="carousel-arrow left" 
+            onClick={prev} 
+            title="Previous" 
+            disabled={currentIndex === 0}
+          >
             <i className="bi bi-arrow-left-circle"></i>
           </button>
-        )}
-        <div className="carousel-items">
-          {visibleProducts.map(product => {
+          <button 
+            className="carousel-arrow right" 
+            onClick={next} 
+            title="Next" 
+            disabled={currentIndex >= products.length - visibleCount}
+          >
+            <i className="bi bi-arrow-right-circle"></i>
+          </button>
+        </div>
+      </div>
+      <div className="carousel-container">
+        <div 
+          className="carousel-items" 
+          style={{ transform: `translateX(-${currentIndex * (cardWidth + gap)}px)` }}
+        >
+          {products.map(product => {
             const imageUrl = product.image.startsWith('/')
               ? `http://localhost:5000${product.image}`
               : product.image;
@@ -53,11 +71,6 @@ function Carousel({ title, products }) {
             );
           })}
         </div>
-        {currentIndex < products.length - visibleCount && (
-          <button className="carousel-arrow right" onClick={next} title="Next">
-            <i className="bi bi-arrow-right-circle"></i>
-          </button>
-        )}
       </div>
     </div>
   );
@@ -67,7 +80,7 @@ function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   
-  // Read search keyword from URL query string
+  // Read the search keyword from the URL query string.
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
   const keyword = queryParams.get('keyword') ? queryParams.get('keyword').toLowerCase() : '';
@@ -93,7 +106,7 @@ function Home() {
       )
     : products;
 
-  // For demonstration, split filteredProducts into two groups for two carousels
+  // For demonstration, split filteredProducts into two groups for two carousels.
   const halfIndex = Math.ceil(filteredProducts.length / 2);
   const trendingGames = filteredProducts.slice(0, halfIndex);
   const newReleases = filteredProducts.slice(halfIndex);
