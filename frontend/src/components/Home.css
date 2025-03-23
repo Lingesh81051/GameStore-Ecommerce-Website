@@ -5,15 +5,11 @@
   text-align: center;
 }
 
-.home-container h1 {
-  color: #3498db;
-  margin-bottom: 20px;
-}
-
 /* Carousel Section */
 .carousel-section {
   margin-bottom: 40px;
   position: relative;
+  text-align: left;
 }
 
 .carousel-header {
@@ -56,14 +52,14 @@
 .carousel-container {
   position: relative;
   overflow: hidden;
-  padding: 0 50px; /* Provide space for arrow buttons */
+  padding: 0 50px; /* Ensure arrows have space */
 }
 
 .carousel-items {
   display: flex;
   gap: 20px;
   transition: transform 0.5s ease-in-out;
-  /* Ensure the carousel-items takes full width */
+  justify-content: center;
   width: fit-content;
 }
 

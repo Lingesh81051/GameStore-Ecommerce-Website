@@ -1,3 +1,4 @@
+// frontend/src/components/Header.js
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Header.css';
@@ -27,7 +28,7 @@ function Header() {
         </div>
       </div>
 
-      {/* Center Section: Search Bar (Only on Home Page) */}
+      {/* Center Section: Show search bar only on Home page */}
       {pathname === '/' && (
         <div className="header-center">
           <form onSubmit={submitHandler} className="search-form">
@@ -37,12 +38,14 @@ function Header() {
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
             />
-            <button type="submit">Search</button>
+            <button type="submit" title="Search">
+              <i className="bi bi-search"></i>
+            </button>
           </form>
         </div>
       )}
 
-      {/* Right Section: Navigation */}
+      {/* Right Section: Navigation links */}
       <div className="header-right">
         <div className="dropdown">
           <Link to="/" className="dropdown-trigger" title="Go to Home">

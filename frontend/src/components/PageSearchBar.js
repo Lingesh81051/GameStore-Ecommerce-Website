@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import './PageSearchBar.css';
 
-function PageSearchBar({ placeholder, onSearch, onViewChange, hideViewButtons = false }) {
+function PageSearchBar({ placeholder, onSearch, onViewChange, hideViewButtons = false, formStyle }) {
   const [keyword, setKeyword] = useState('');
   const [viewMode, setViewMode] = useState('compact');
 
@@ -18,7 +18,7 @@ function PageSearchBar({ placeholder, onSearch, onViewChange, hideViewButtons = 
 
   return (
     <div className="page-search-bar">
-      <form onSubmit={handleSearch} className="page-search-form">
+      <form onSubmit={handleSearch} className="page-search-form" style={formStyle}>
         <input
           type="text"
           placeholder={placeholder || 'Search...'}

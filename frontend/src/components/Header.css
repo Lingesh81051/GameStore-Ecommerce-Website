@@ -1,4 +1,3 @@
-/* General Header Styling */
 .main-header {
   display: flex;
   align-items: center;
@@ -9,10 +8,7 @@
   font-family: 'Roboto', sans-serif;
 }
 
-/* Left Section: Logo */
-.header-left {
-  flex: 1;
-}
+/* Left Section */
 .header-left .logo a {
   font-size: 2rem;
   font-weight: bold;
@@ -23,15 +19,15 @@
   margin-right: 8px;
 }
 
-/* Center Section: Search Bar */
+/* Center Section: search bar (only on Home) */
 .header-center {
-  flex: 2; /* Gives more space to center content */
+  flex: 1;
   display: flex;
   justify-content: center;
 }
 .search-form {
   display: flex;
-  max-width: 600px; /* Extended width */
+  max-width: 600px;
   width: 100%;
 }
 .search-form input {
@@ -56,7 +52,6 @@
 
 /* Right Section: Navigation */
 .header-right {
-  flex: 1;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -112,7 +107,7 @@
   display: block;
 }
 
-/* Avatar Icon */
+/* Avatar icon styling */
 .avatar-icon i {
   font-size: 2rem;
   color: #3498db;

@@ -1,12 +1,13 @@
 // backend/models/Product.js
 const mongoose = require('mongoose');
 
-const ProductSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String },
   price: { type: Number, required: true },
-  countInStock: { type: Number, required: true, default: 0 },
-  image: { type: String }
+  countInStock: { type: Number, required: true },
+  image: { type: String, required: true },
+  categories: { type: [String], default: [] }  // This line must be present!
 }, { timestamps: true });
 
-module.exports = mongoose.model('Product', ProductSchema);
+module.exports = mongoose.model('Product', productSchema);

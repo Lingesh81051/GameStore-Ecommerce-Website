@@ -4,19 +4,29 @@ import axios from 'axios';
 import { Link, useLocation } from 'react-router-dom';
 import './Home.css';
 
-function Carousel({ title, products }) {
+function Carousel({ title, filterTag, products }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const visibleCount = 5; // Show five products at a time
-  const cardWidth = 300;  // Width of each product card in px (must match CSS)
-  const gap = 20;         // Gap between product cards in px
+  const visibleCount = 5; // Display five products at a time
+  const cardWidth = 300;  // Must match product card width in CSS
+  const gap = 20;         // Gap between cards in px
+
+  // Filter products by the given tag (ensure categories is always an array)
+  const filtered = products.filter(
+    (p) => Array.isArray(p.categories) && p.categories.includes(filterTag)
+  );
+  const maxIndex = Math.max(0, filtered.length - visibleCount);
 
   const prev = () => {
-    setCurrentIndex(prevIndex => Math.max(0, prevIndex - 1));
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
   };
 
   const next = () => {
-    setCurrentIndex(prevIndex => Math.min(products.length - visibleCount, prevIndex + 1));
+    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
   };
+
+  const visibleProducts = filtered.slice(currentIndex, currentIndex + visibleCount);
+
+  if (filtered.length === 0) return null;
 
   return (
     <div className="carousel-section">
@@ -35,7 +45,7 @@ function Carousel({ title, products }) {
             className="carousel-arrow right" 
             onClick={next} 
             title="Next" 
-            disabled={currentIndex >= products.length - visibleCount}
+            disabled={currentIndex >= maxIndex}
           >
             <i className="bi bi-arrow-right-circle"></i>
           </button>
@@ -46,7 +56,7 @@ function Carousel({ title, products }) {
           className="carousel-items" 
           style={{ transform: `translateX(-${currentIndex * (cardWidth + gap)}px)` }}
         >
-          {products.map(product => {
+          {visibleProducts.map(product => {
             const imageUrl = product.image.startsWith('/')
               ? `http://localhost:5000${product.image}`
               : product.image;
@@ -106,26 +116,23 @@ function Home() {
       )
     : products;
 
-  // For demonstration, split filteredProducts into two groups for two carousels.
-  const halfIndex = Math.ceil(filteredProducts.length / 2);
-  const trendingGames = filteredProducts.slice(0, halfIndex);
-  const newReleases = filteredProducts.slice(halfIndex);
-
   return (
     <div className="home-container">
-      <h1>Games</h1>
+      {/* Removed extra "Games" title */}
       {loading ? (
         <p>Loading...</p>
       ) : filteredProducts.length === 0 ? (
         <p>No products found.</p>
       ) : (
         <>
-          {trendingGames.length > 0 && (
-            <Carousel title="Trending Games" products={trendingGames} />
-          )}
-          {newReleases.length > 0 && (
-            <Carousel title="New Releases" products={newReleases} />
-          )}
+          <Carousel title="Discover New" filterTag="Discover New" products={filteredProducts} />
+          <Carousel title="Featured Discounts" filterTag="Featured Discounts" products={filteredProducts} />
+          <Carousel title="Free Games" filterTag="Free Games" products={filteredProducts} />
+          <Carousel title="Trending Games" filterTag="Trending Games" products={filteredProducts} />
+          <Carousel title="New Releases" filterTag="New Releases" products={filteredProducts} />
+          <Carousel title="Top Sellers" filterTag="Top Sellers" products={filteredProducts} />
+          <Carousel title="Most Played" filterTag="Most Played" products={filteredProducts} />
+          <Carousel title="Most popular" filterTag="Most popular" products={filteredProducts} />
         </>
       )}
     </div>
