@@ -115,7 +115,7 @@ GameStore-Ecommerce/
 │   │     │     ├── Auth.css             # Shared auth styles for Login/Signup
 │   │     │     ├── PageSearchBar.js
 │   │     │     ├── PageSearchBar.css
-│   │     │     └── CategoryFilter.js    # (Optional, if used)
+│   │     │     └── CategoryFilter.js    
 │   │     ├── App.js
 │   │     └── App.css
 │   └── package.json
