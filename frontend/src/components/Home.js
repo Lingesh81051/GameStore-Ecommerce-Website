@@ -6,25 +6,31 @@ import './Home.css';
 
 function Carousel({ title, filterTag, products }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const visibleCount = 5; // Display five products at a time
-  const cardWidth = 300;  // Must match product card width in CSS
+  const visibleCount = 5; // Number of products visible at a time
+  const cardWidth = 283;  // Must match product card width in CSS
   const gap = 20;         // Gap between cards in px
 
-  // Filter products by the given tag (ensure categories is always an array)
+  // Filter products by tag; ensure categories is an array.
   const filtered = products.filter(
     (p) => Array.isArray(p.categories) && p.categories.includes(filterTag)
   );
-  const maxIndex = Math.max(0, filtered.length - visibleCount);
+  
+  // If there are fewer than visibleCount items, no sliding is needed.
+  const maxIndex = filtered.length > visibleCount ? filtered.length - visibleCount : 0;
 
   const prev = () => {
-    setCurrentIndex((prev) => Math.max(0, prev - 1));
+    setCurrentIndex(prev => Math.max(0, prev - 1));
   };
 
   const next = () => {
-    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
+    setCurrentIndex(prev => {
+      const newIndex = prev + 1;
+      return newIndex > maxIndex ? maxIndex : newIndex;
+    });
   };
 
-  const visibleProducts = filtered.slice(currentIndex, currentIndex + visibleCount);
+  // Calculate total width of carousel-items container dynamically
+  const totalWidth = filtered.length * cardWidth + (filtered.length - 1) * gap;
 
   if (filtered.length === 0) return null;
 
@@ -33,18 +39,18 @@ function Carousel({ title, filterTag, products }) {
       <div className="carousel-header">
         <h2>{title}</h2>
         <div className="carousel-arrows">
-          <button 
-            className="carousel-arrow left" 
-            onClick={prev} 
-            title="Previous" 
+          <button
+            className="carousel-arrow left"
+            onClick={prev}
+            title="Previous"
             disabled={currentIndex === 0}
           >
             <i className="bi bi-arrow-left-circle"></i>
           </button>
-          <button 
-            className="carousel-arrow right" 
-            onClick={next} 
-            title="Next" 
+          <button
+            className="carousel-arrow right"
+            onClick={next}
+            title="Next"
             disabled={currentIndex >= maxIndex}
           >
             <i className="bi bi-arrow-right-circle"></i>
@@ -52,11 +58,14 @@ function Carousel({ title, filterTag, products }) {
         </div>
       </div>
       <div className="carousel-container">
-        <div 
-          className="carousel-items" 
-          style={{ transform: `translateX(-${currentIndex * (cardWidth + gap)}px)` }}
+        <div
+          className="carousel-items"
+          style={{
+            transform: `translateX(-${currentIndex * (cardWidth + gap)}px)`,
+            width: totalWidth
+          }}
         >
-          {visibleProducts.map(product => {
+          {filtered.map(product => {
             const imageUrl = product.image.startsWith('/')
               ? `http://localhost:5000${product.image}`
               : product.image;
@@ -89,8 +98,7 @@ function Carousel({ title, filterTag, products }) {
 function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-  // Read the search keyword from the URL query string.
+
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
   const keyword = queryParams.get('keyword') ? queryParams.get('keyword').toLowerCase() : '';
@@ -109,7 +117,6 @@ function Home() {
     fetchProducts();
   }, []);
 
-  // Filter products based on the keyword (if any)
   const filteredProducts = keyword
     ? products.filter(product =>
         product.name.toLowerCase().includes(keyword)
@@ -118,7 +125,6 @@ function Home() {
 
   return (
     <div className="home-container">
-      {/* Removed extra "Games" title */}
       {loading ? (
         <p>Loading...</p>
       ) : filteredProducts.length === 0 ? (

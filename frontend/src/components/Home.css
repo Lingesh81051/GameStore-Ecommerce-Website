@@ -5,6 +5,19 @@
   text-align: center;
 }
 
+/* Top carousels container for two columns */
+.top-carousels {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.top-carousels .column {
+  flex: 1;
+  min-width: 300px;
+}
+
 /* Carousel Section */
 .carousel-section {
   margin-bottom: 40px;
@@ -16,7 +29,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 50px; /* Space for arrow buttons */
+  /* Header padding for alignment */
+  padding: 0 50px;
   margin-bottom: 10px;
 }
 
@@ -49,21 +63,25 @@
   color: #2980b9;
 }
 
+/* Updated carousel container:
+   Instead of fixed padding, we set a width that leaves 50px on both sides,
+   aligning with the header title */
 .carousel-container {
   position: relative;
   overflow: hidden;
-  padding: 0 50px; /* Ensure arrows have space */
+  width: calc(100% - 100px);  /* Leaves 50px gap on left and right */
+  margin: 0 auto;
 }
 
 .carousel-items {
   display: flex;
   gap: 20px;
   transition: transform 0.5s ease-in-out;
-  justify-content: center;
+  justify-content: flex-start;
   width: fit-content;
 }
 
-/* Product Card: Increased width to 300px */
+/* Default product card styling for 5 visible items */
 .product-card {
   background: #ffffff;
   border: 1px solid #e0e0e0;
@@ -99,6 +117,7 @@
   margin: 8px 0;
 }
 
+/* Details button placed below category tags */
 .details-btn {
   display: inline-block;
   padding: 8px 16px;
@@ -107,8 +126,36 @@
   text-decoration: none;
   border-radius: 4px;
   transition: background-color 0.2s;
+  margin-top: 15px;
 }
 
 .details-btn:hover {
   background-color: #2980b9;
+}
+
+/* Adjustments for small-carousel mode (3 visible products) */
+.small-carousel .product-card {
+  width: 250px;
+}
+.small-carousel .product-card img {
+  height: 180px;
+}
+.small-carousel .carousel-items {
+  gap: 10px;
+}
+
+/* Category tags styling */
+.category-tags {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+}
+.category-tags .tag {
+  background-color: #3498db;
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
 }
