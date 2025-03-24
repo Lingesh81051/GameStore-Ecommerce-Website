@@ -5,37 +5,42 @@ import { Link, useLocation } from 'react-router-dom';
 import './Home.css';
 
 function Carousel({ title, filterTag, products }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const visibleCount = 5; // Number of products visible at a time
-  const cardWidth = 283;  // Must match product card width in CSS
-  const gap = 20;         // Gap between cards in px
+  const isFeatured = title === "Featured Discounts";
 
-  // Filter products by tag; ensure categories is an array.
+  // For non-featured carousels, we want 5 cards, for Featured Discounts 3 cards.
+  const visibleCount = isFeatured ? 3 : 5;
+  // For non-featured: card width = 284px, for Featured: we keep previous values.
+  const cardWidth = isFeatured ? 480 : 284;
+  // Gap for non-featured: 20px, for Featured: use previous gap value (e.g., 30px).
+  const gap = isFeatured ? 30 : 20;
+
+  // Filter products by tag (ensuring product.categories is an array)
   const filtered = products.filter(
     (p) => Array.isArray(p.categories) && p.categories.includes(filterTag)
   );
-  
-  // If there are fewer than visibleCount items, no sliding is needed.
+
+  // Maximum sliding index (so that currentIndex + visibleCount equals filtered.length)
   const maxIndex = filtered.length > visibleCount ? filtered.length - visibleCount : 0;
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const prev = () => {
-    setCurrentIndex(prev => Math.max(0, prev - 1));
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
   };
 
   const next = () => {
-    setCurrentIndex(prev => {
+    setCurrentIndex((prev) => {
       const newIndex = prev + 1;
       return newIndex > maxIndex ? maxIndex : newIndex;
     });
   };
 
-  // Calculate total width of carousel-items container dynamically
+  // Total width for the sliding container (for proper sliding)
   const totalWidth = filtered.length * cardWidth + (filtered.length - 1) * gap;
 
   if (filtered.length === 0) return null;
 
   return (
-    <div className="carousel-section">
+    <div className={`carousel-section ${isFeatured ? "featured" : ""}`}>
       <div className="carousel-header">
         <h2>{title}</h2>
         <div className="carousel-arrows">
@@ -57,9 +62,9 @@ function Carousel({ title, filterTag, products }) {
           </button>
         </div>
       </div>
-      <div className="carousel-container">
+      <div className={`carousel-container ${isFeatured ? "featured" : ""}`}>
         <div
-          className="carousel-items"
+          className={`carousel-items ${isFeatured ? "featured" : ""}`}
           style={{
             transform: `translateX(-${currentIndex * (cardWidth + gap)}px)`,
             width: totalWidth
@@ -70,7 +75,7 @@ function Carousel({ title, filterTag, products }) {
               ? `http://localhost:5000${product.image}`
               : product.image;
             return (
-              <div className="product-card" key={product._id}>
+              <div className={`product-card ${isFeatured ? "featured" : ""}`} key={product._id}>
                 <img
                   src={imageUrl}
                   alt={product.name}
