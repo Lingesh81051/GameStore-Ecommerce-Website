@@ -6,39 +6,38 @@ import './Home.css';
 
 function Carousel({ title, filterTag, products }) {
   const isFeatured = title === "Featured Discounts";
-
-  // For non-featured carousels, we want 5 cards, for Featured Discounts 3 cards.
+  
+  // For non-featured: 5 cards, gap = 20px, cardWidth = 254px.
+  // For Featured: 3 cards, gap = 25px, cardWidth ≈ 433px.
   const visibleCount = isFeatured ? 3 : 5;
-  // For non-featured: card width = 284px, for Featured: we keep previous values.
-  const cardWidth = isFeatured ? 480 : 284;
-  // Gap for non-featured: 20px, for Featured: use previous gap value (e.g., 30px).
-  const gap = isFeatured ? 30 : 20;
-
-  // Filter products by tag (ensuring product.categories is an array)
+  const cardWidth = isFeatured ? 433 : 254;
+  const gap = isFeatured ? 25 : 20;
+  
+  // Filter products by tag.
   const filtered = products.filter(
     (p) => Array.isArray(p.categories) && p.categories.includes(filterTag)
   );
-
-  // Maximum sliding index (so that currentIndex + visibleCount equals filtered.length)
+  
+  // Calculate maximum index so that currentIndex + visibleCount equals filtered.length.
   const maxIndex = filtered.length > visibleCount ? filtered.length - visibleCount : 0;
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  
   const prev = () => {
-    setCurrentIndex((prev) => Math.max(0, prev - 1));
+    setCurrentIndex(prev => Math.max(0, prev - 1));
   };
-
+  
   const next = () => {
-    setCurrentIndex((prev) => {
+    setCurrentIndex(prev => {
       const newIndex = prev + 1;
       return newIndex > maxIndex ? maxIndex : newIndex;
     });
   };
-
-  // Total width for the sliding container (for proper sliding)
+  
+  // Total width for the sliding container.
   const totalWidth = filtered.length * cardWidth + (filtered.length - 1) * gap;
-
+  
   if (filtered.length === 0) return null;
-
+  
   return (
     <div className={`carousel-section ${isFeatured ? "featured" : ""}`}>
       <div className="carousel-header">
@@ -62,6 +61,7 @@ function Carousel({ title, filterTag, products }) {
           </button>
         </div>
       </div>
+      {/* Carousel container fixed at 1350px */}
       <div className={`carousel-container ${isFeatured ? "featured" : ""}`}>
         <div
           className={`carousel-items ${isFeatured ? "featured" : ""}`}
@@ -103,11 +103,11 @@ function Carousel({ title, filterTag, products }) {
 function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
   const keyword = queryParams.get('keyword') ? queryParams.get('keyword').toLowerCase() : '';
-
+  
   useEffect(() => {
     async function fetchProducts() {
       try {
@@ -121,13 +121,13 @@ function Home() {
     }
     fetchProducts();
   }, []);
-
+  
   const filteredProducts = keyword
     ? products.filter(product =>
         product.name.toLowerCase().includes(keyword)
       )
     : products;
-
+  
   return (
     <div className="home-container">
       {loading ? (
