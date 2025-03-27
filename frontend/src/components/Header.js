@@ -52,9 +52,9 @@ function Header() {
             <i className="bi bi-house"></i> Home
           </Link>
           <div className="dropdown-menu">
-            <Link to="/discover" title="Discover new games">
+            {/* <Link to="/discover" title="Discover new games">
               <i className="bi bi-compass"></i> Discover
-            </Link>
+            </Link> */}
             <Link to="/news" title="Latest news">
               <i className="bi bi-newspaper"></i> News
             </Link>

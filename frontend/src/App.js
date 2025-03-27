@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Home from './components/Home';
 import Discover from './components/Discover';
 import News from './components/News';
+import NewsDetail from './components/NewsDetail';  // Detailed news view
 import Library from './components/Library';
 import Wishlist from './components/Wishlist';
 import Categories from './components/Categories';
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/discover" element={<Discover />} />
           <Route path="/news" element={<News />} />
+          <Route path="/news/:id" element={<NewsDetail />} /> {/* News detail view */}
           <Route path="/library" element={<Library />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/categories" element={<Categories />} />

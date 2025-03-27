@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Include your routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/products', require('./routes/product'));
+app.use('/api/news', require('./routes/news'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
